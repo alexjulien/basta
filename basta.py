@@ -3,11 +3,6 @@ import os, random, configparser
 config = configparser.ConfigParser()
 config.read('basta.ini')
 
-# Accessing values
-host = config['database']['host']
-port = config.getint('database', 'port')
-is_debug = config.getboolean('settings', 'debug')
-
 
 extensions = config['paths']['extensions']
 base_path = config['paths']['base']
