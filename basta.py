@@ -21,7 +21,7 @@ sort_by = {
     'size': [],
     '_any': [],
 }
-with os.scandir(os.path.join(base_path, images_path) as ents:
+with os.scandir(os.path.join(base_path, images_path)) as ents:
     for e in ents:
         if e.is_file():
             sort_by['name'].append(e.name)
