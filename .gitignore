@@ -1,3 +1,6 @@
+# Local sample
+sample_project/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
