@@ -1,19 +1,35 @@
-import os, random
+import os, random, configparser
 
-extensions = ('avif'',)
+config = configparser.ConfigParser()
+config.read('basta.ini')
+
+# Accessing values
+host = config['database']['host']
+port = config.getint('database', 'port')
+is_debug = config.getboolean('settings', 'debug')
+
+
+extensions = config['paths']['extensions']
+base_path = config['paths']['base']
+html_path = config['paths']['html']
+images_path = config['paths']['images']
+
+
 sort_by = {
     'name': [],
     'date': [],
     'size': [],
     '_any': [],
 }
-with os.scandir('.') as ents:
+with os.scandir(os.path.join(base_path, images_path) as ents:
     for e in ents:
         if e.is_file():
             sort_by['name'].append(e.name)
             sort_by['date'].append(f"{e.st_mtime}__{e.name}")
             sort_by['size'].append(f"{e.st_size}__{e.name}")
 
+print(sort_by)
+exit(0)
 
 images = os.listdir('avif')
 random.shuffle(images)
