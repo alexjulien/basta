@@ -1,0 +1,8 @@
+[paths]
+base = .\sample_project 
+# ../../blob/cvt
+html = .
+# avif
+images = images
+# avif/avif
+extensions = ('jpg', 'png', 'avif', 'gif')
