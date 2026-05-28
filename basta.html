@@ -1,0 +1,76 @@
+<html>
+
+<head>
+
+<script>
+
+function getCoords(event){
+
+	let grid_size = 3;
+
+	const links = [
+
+		"LINKS_HERE"
+
+	];
+
+	let x = event.offsetX;
+
+	let y = event.offsetY;
+
+	let w = event.target.clientWidth;
+
+	let h = event.target.clientHeight;
+
+	console.log(x  + ","+y);
+
+	let hor = Math.floor(x* grid_size/w);
+
+	let ver = Math.floor(y* grid_size/h);
+
+	grid_area = hor+(grid_size*ver);
+
+	console.log(hor + ","+ver + "=" + grid_area);
+
+//	document.location.href=links[grid_area];
+
+}
+
+</script>
+
+</head>
+
+<body bgcolor="#000000">
+
+<img src="CSF_BBVA.jpg" width="100%" onclick="getCoords(event)" />
+
+<!--
+
+3x3 grid
+
+
+
+123
+
+456
+
+789
+
+
+
+12: name
+
+45: size
+
+78: date
+
+3 : home
+
+69: random
+
+
+but 0-index
+
+-->
+
+</body></html>
