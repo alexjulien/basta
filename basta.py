@@ -23,8 +23,8 @@ with os.scandir(os.path.join(base_path, images_path)) as ents:
     for e in ents:
         if e.is_file():
             sort_by['name'].append(e.name)
-            sort_by['date_s'].append(f"{e.stat().st_mtime}__{e.name}")
-            sort_by['size_s'].append(f"{e.stat().st_size}__{e.name}")
+            sort_by['date_s'].append(f"{e.stat().st_mtime}=={e.name}")
+            sort_by['size_s'].append(f"{e.stat().st_size}=={e.name}")
             sort_by['_any'].append(e.name)
 
 sort_by['name'].sort()
@@ -34,9 +34,9 @@ sort_by['size_s'].sort()
 random.shuffle(sort_by['_any'])
 
 for f in sort_by['date_s']:
-    sort_by['date'].append(f.split('__')[1])
+    sort_by['date'].append(f.split('==')[1])
 for f in sort_by['size_s']:  
-    sort_by['size'].append(f.split('__')[1])
+    sort_by['size'].append(f.split('==')[1])
 
 total_sort_by = len(sort_by['name'])
 for i in range(0, len(sort_by['name'])):
