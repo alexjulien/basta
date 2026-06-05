@@ -60,19 +60,26 @@ for i in range(0, len(sort_by['name'])):
 
     html_file = os.path.join(base_path, html_path, "%s.html" % f.split('.')[0])
     link_grid = [
+         os.path.join(f"{html_path}/{f_prev_name.split('.')[0]}.html"),
+         os.path.join(f"{html_path}/{f_next_name.split('.')[0]}.html"),
          os.path.join(f"{html_path}/{f_prev_any.split('.')[0]}.html"),
+         os.path.join(f"{html_path}/{f_prev_size.split('.')[0]}.html"),
+         os.path.join(f"{html_path}/{f_next_size.split('.')[0]}.html"),
          os.path.join(f"{html_path}/{f_next_any.split('.')[0]}.html"),
          os.path.join(f"{html_path}/{f_prev_date.split('.')[0]}.html"),
          os.path.join(f"{html_path}/{f_next_date.split('.')[0]}.html"),
-         os.path.join(f"{html_path}/{f_prev_size.split('.')[0]}.html"),
-         os.path.join(f"{html_path}/{f_next_size.split('.')[0]}.html"),
-         os.path.join(f"{html_path}/{f_prev_name.split('.')[0]}.html"),
-         os.path.join(f"{html_path}/{f_next_name.split('.')[0]}.html"),
          os.path.join(f"{html_path}/index.html"),
     ]
     html_out = html.replace("{image}", f"{images_path}/{f}")
     html_out = html_out.replace("{link_grid}", ', '.join(['"%s"' % link for link in link_grid]))
     open(html_file, 'w').write(html_out)
+    
+html_index = open("index.html", "r").read()
+html_index = html_index.replace("{first_date}", sort_by['date'][-1])
+html_index = html_index.replace("{first_size}", sort_by['size'][-1])
+html_index = html_index.replace("{first_name}", sort_by['name'][0])
+html_index = html_index.replace("{first__any}", sort_by['_any'][0])
+
 html_file = os.path.join(base_path, html_path, "index.html")
 open(html_file, 'w').write(html_out)
 
