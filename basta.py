@@ -10,6 +10,35 @@ html_path = config['paths']['html']
 images_path = config['paths']['images']
 html = open('basta.html', 'r').read()
 
+def html_url(f, base_path=html_path):
+    return os.path.join(base_path, "%s.html" % f.split('.')[0])
+
+# Source - https://stackoverflow.com/a/34325723
+# Posted by Greenstick, modified by community. See post 'Timeline' for change history
+# Retrieved 2026-06-05, License - CC BY-SA 4.0
+
+# Print iterations progress
+def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, length = 100, fill = '█', printEnd = "\r"):
+    """
+    Call in a loop to create terminal progress bar
+    @params:
+        iteration   - Required  : current iteration (Int)
+        total       - Required  : total iterations (Int)
+        prefix      - Optional  : prefix string (Str)
+        suffix      - Optional  : suffix string (Str)
+        decimals    - Optional  : positive number of decimals in percent complete (Int)
+        length      - Optional  : character length of bar (Int)
+        fill        - Optional  : bar fill character (Str)
+        printEnd    - Optional  : end character (e.g. "\r", "\r\n") (Str)
+    """
+    percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
+    filledLength = int(length * iteration // total)
+    bar = fill * filledLength + '-' * (length - filledLength)
+    print(f'\r{prefix} |{bar}| {percent}% {suffix}', end = printEnd)
+    # Print New Line on Complete
+    if iteration == total: 
+        print()
+
 
 sort_by = {
     'name': [],
@@ -39,7 +68,9 @@ for f in sort_by['size_s']:
     sort_by['size'].append(f.split('==')[1])
 
 total_sort_by = len(sort_by['name'])
-for i in range(0, len(sort_by['name'])):
+printProgressBar(0, total_sort_by)
+for i in range(0, total_sort_by):
+    printProgressBar(i + 1, total_sort_by)
     f = sort_by['_any'][i]
     f_next_any = sort_by['_any'][(i+1)%total_sort_by]
     f_prev_any = sort_by['_any'][(i-1)%total_sort_by]
@@ -60,15 +91,15 @@ for i in range(0, len(sort_by['name'])):
 
     html_file = os.path.join(base_path, html_path, "%s.html" % f.split('.')[0])
     link_grid = [
-         os.path.join(f"{html_path}/{f_prev_name.split('.')[0]}.html"),
-         os.path.join(f"{html_path}/{f_next_name.split('.')[0]}.html"),
-         os.path.join(f"{html_path}/{f_prev_any.split('.')[0]}.html"),
-         os.path.join(f"{html_path}/{f_prev_size.split('.')[0]}.html"),
-         os.path.join(f"{html_path}/{f_next_size.split('.')[0]}.html"),
-         os.path.join(f"{html_path}/{f_next_any.split('.')[0]}.html"),
-         os.path.join(f"{html_path}/{f_prev_date.split('.')[0]}.html"),
-         os.path.join(f"{html_path}/{f_next_date.split('.')[0]}.html"),
-         os.path.join(f"{html_path}/index.html"),
+        html_url(f_prev_name),
+        html_url(f_next_name),
+        html_url(f_prev_any),
+        html_url(f_prev_size),
+        html_url(f_next_any),
+        html_url(f_next_size),
+        html_url(f_prev_date),
+        html_url(f_next_date),
+        html_url(f"{html_path}/index.html"),
     ]
     html_out = html.replace("{image}", f"{images_path}/{f}")
     html_out = html_out.replace("{link_grid}", ', '.join(['"%s"' % link for link in link_grid]))
@@ -83,4 +114,4 @@ html_index = html_index.replace("{first__any}", sort_by['_any'][0])
 html_file = os.path.join(base_path, html_path, "index.html")
 open(html_file, 'w').write(html_out)
 
-print("Generated %d html files" % total_sort_by)
+print("\n\nGenerated %d html files" % total_sort_by)
