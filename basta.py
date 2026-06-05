@@ -18,7 +18,7 @@ def html_url(f, base_path=html_path):
 # Retrieved 2026-06-05, License - CC BY-SA 4.0
 
 # Print iterations progress
-def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, length = 100, fill = '█', printEnd = "\r"):
+def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, length = 50, fill = '█', printEnd = "\r"):
     """
     Call in a loop to create terminal progress bar
     @params:
@@ -112,6 +112,6 @@ html_index = html_index.replace("{first_name}", sort_by['name'][0])
 html_index = html_index.replace("{first__any}", sort_by['_any'][0])
 
 html_file = os.path.join(base_path, html_path, "index.html")
-open(html_file, 'w').write(html_out)
+open(html_file, 'w').write(html_index)
 
 print("\n\nGenerated %d html files" % total_sort_by)
