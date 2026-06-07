@@ -48,7 +48,6 @@ sort_by['date_s'].reverse()
 sort_by['size_s'].sort()
 sort_by['size_s'].reverse()
 random.shuffle(sort_by['_any'])
-print(sort_by)
 
 for f in sort_by['date_s']:
     sort_by['date'].append(f.split('==')[1])
