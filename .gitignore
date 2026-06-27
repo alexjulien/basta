@@ -1,5 +1,6 @@
 # Local sample
 sample_project/
+sample_playlist/
 basta.ini
 
 # Byte-compiled / optimized / DLL files
@@ -221,3 +222,4 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 .vscode/settings.json
+.vscode/launch.json
