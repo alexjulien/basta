@@ -5,22 +5,23 @@ import argparse
 import shutil
 from pathlib import Path
 
-def generate_playlist_html(playlist_json, output_folder):
+def generate_playlist_html(playlist_json, output_folder=None):
     """
-    Read playlist.json, extract video URLs, and generate an index.html
+    Read playlist.json, extract video URLs, and generate an HTML file
     with the videos list in the output folder.
     
     Args:
         playlist_json: Path to the playlist.json file
-        output_folder: Path to the folder where index.html will be generated
+        output_folder: Optional path to the folder where the HTML will be generated.
+                       Defaults to the same folder as the JSON file.
     """
     
     # Define paths
     base_dir = Path(__file__).parent
     playlist_json = Path(playlist_json).resolve()
-    output_folder = Path(output_folder).resolve()
+    output_folder = Path(output_folder).resolve() if output_folder else playlist_json.parent
     template_html = base_dir / "index_playlist.html"
-    output_html = output_folder / "index.html"
+    output_html = output_folder / f"{playlist_json.stem}.html"
     
     # Validate paths
     if not playlist_json.exists():
@@ -85,7 +86,8 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "output_folder",
-        help="Path to the output folder where index.html will be generated"
+        nargs="?",
+        help="Optional path to the output folder where the HTML will be generated. Defaults to the JSON file's folder"
     )
     
     args = parser.parse_args()
